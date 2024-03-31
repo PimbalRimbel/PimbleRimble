@@ -1,10 +1,11 @@
 
-    public interface IPooledObject
+public interface IPooledObject
+{
+    public bool Active
     {
-        public bool Active
-        {
-            get;
-            set;
-        }
-        public void Reset();
+        get;
+        set;
     }
+
+    public void Reset();
+}
