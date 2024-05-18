@@ -7459,7 +7459,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6486053606824188637, guid: 6162ac2b60c16c94397bcb67cc23d297, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 2090673655}
   m_SourcePrefab: {fileID: 100100000, guid: 6162ac2b60c16c94397bcb67cc23d297, type: 3}
 --- !u!1 &2090673654 stripped
@@ -7479,8 +7479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d41cd540745ad47b3e6d29b02706b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 0}
-  puntoDisparo: {fileID: 0}
+  BulletPrefab: {fileID: 9141338218809068285, guid: 25e8272bdec09f94e877850708a6b54f, type: 3}
   velDisparo: 0.5
   nextDisparo: 0
   speed: 0

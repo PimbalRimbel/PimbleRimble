@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,11 +10,11 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D Rigidbody2D;
     public GameObject BulletPrefab;
-    public Transform puntoDisparo;
 
     private int numero = 0;
     public float velDisparo = 0.5f; //velocidad de disparo
-    public float nextDisparo = 0f;
+    public float nextDisparo;
+    private int salud = 5;
 
     public float speed;
     public float jump;
@@ -58,12 +59,22 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        //Disparar
-        if (Input.GetButton("Fire1") && Time.time >= nextDisparo)
+        // Disparar
+        if (Input.GetKey(KeyCode.Space) && Time.time > nextDisparo + 0.25f)
         {
-            nextDisparo = Time.time + velDisparo;
-
             Disparo();
+
+            nextDisparo = Time.time;
+        }
+
+        Posicion();
+    }
+
+    public void Posicion()
+    {
+        if (transform.position.y < -0.5)
+        {
+            Reestablecer();
         }
     }
 
@@ -84,5 +95,30 @@ public class Player : MonoBehaviour
         else direction = Vector3.left;
 
         GameObject bullet = Instantiate(BulletPrefab, transform.position + direction * 0.1f, Quaternion.identity);
+    }
+
+    public void Alcanzado()
+    {
+        salud -= 1;
+        if (salud == 0)
+        {
+            Reestablecer();
+        }
+    }
+
+    public void Reestablecer()
+    {
+        numero = 1;
+        if (salud <= 0)
+        {
+            transform.position = new Vector3(-1, 0.1f, 0);
+            salud = 5;
+        }
+        else
+        { 
+            transform.position = new Vector3(-1, 0.1f, 0);
+            salud = 5;
+        }
+
     }
 }
