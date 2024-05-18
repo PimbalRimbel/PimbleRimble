@@ -8,5 +8,6 @@ public class Bullet : MonoBehaviour, IPooledObject
     public void Reset()
     {
         // Reinicia el estado de la bala
+        gameObject.SetActive(false);
     }
 }

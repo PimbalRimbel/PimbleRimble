@@ -16,31 +16,26 @@ public class ObjectPool : IPool
 
     public void Get(IPooledObject obj)
     {
-        //AuxGet(aux, index);
-        int index = _objects.IndexOf(obj);
-        if (!_objects[index].Active)
+        if (!_objects.Contains(obj))
         {
-            _objects[index].Active = true;
+            _objects.Add(obj);
+        }
+
+        if (!obj.Active)
+        {
+            obj.Active = true;
             _activeObjects += 1;
+            ((Bullet)obj).gameObject.SetActive(true); // Activar el GameObject
         }
     }
 
     public void Release(IPooledObject obj)
     {
-        int index = _objects.IndexOf(obj);
-        _objects[index].Active = false;
-        _activeObjects -= 1;
-        _objects[index].Reset();
-        //Get(_objects[index],index);
-    }
-
-    private void AuxGet(IPooledObject aux, int index)
-    {
-        //yield return new WaitForSeconds(3f);
-        if (!_objects[index].Active)
+        if (_objects.Contains(obj))
         {
-            _objects[index].Active = true;
-            _activeObjects += 1;
+            obj.Active = false;
+            _activeObjects -= 1;
+            ((Bullet)obj).Reset();
         }
     }
 }

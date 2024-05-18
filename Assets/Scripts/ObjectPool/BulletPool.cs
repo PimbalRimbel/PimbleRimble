@@ -11,10 +11,13 @@ public class BulletPool : MonoBehaviour
     {
         bulletPool = new ObjectPool();
 
-        Assert.IsTrue(bulletPrefabs.Length > 0, "Bullet prefabs must be greater than 1");
+        Assert.IsTrue(bulletPrefabs.Length > 0, "Debe haber más de 1 prefab de bala");
 
         foreach (var prefab in bulletPrefabs)
         {
+            var instance = Instantiate(prefab);
+            instance.gameObject.SetActive(false);
+
             bulletPool._objects.Add(prefab);
         }
     }
