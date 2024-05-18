@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D Rigidbody2D;
-    public BulletPool bulletPool;
+    public GameObject BulletPrefab;
     public Transform puntoDisparo;
 
     private int numero = 0;
@@ -37,7 +38,6 @@ public class Player : MonoBehaviour
     public void Start()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        bulletPool = FindObjectOfType<BulletPool>(); // Encuentra el BulletPool en la escena
     }
 
     // Update is called once per frame
@@ -79,13 +79,10 @@ public class Player : MonoBehaviour
 
     public void Disparo()
     {
-        Bullet bullet = bulletPool.GetBullet();
-        if (bullet != null)
-        {
-            bullet.transform.position = puntoDisparo.position;
-            bullet.transform.rotation = puntoDisparo.rotation;
+        Vector3 direction;
+        if (transform.localScale.x == 1.0f) direction = Vector3.right;
+        else direction = Vector3.left;
 
-            bullet.GetComponent<BulletScript>().SetDirection(puntoDisparo.up);
-        }
+        GameObject bullet = Instantiate(BulletPrefab, transform.position + direction * 0.1f, Quaternion.identity);
     }
 }
