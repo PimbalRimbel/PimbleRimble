@@ -7481,11 +7481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 9141338218809068285, guid: 25e8272bdec09f94e877850708a6b54f, type: 3}
   velDisparo: 0.5
-  nextDisparo: 0
-  speed: 0
-  jump: 0
-  horizontal: 0
-  suelo: 0
+  speed: 5
+  jump: 10
 --- !u!4 &2103789301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4756773034887050, guid: 45570b5f63ba4b64590574d72f44d18b, type: 3}
