@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,17 +8,17 @@ public class Player : MonoBehaviour
     private Rigidbody2D Rigidbody;
     public GameObject BulletPrefab;
 
-    //Bala
+    // Bala
     private int numero = 0;
     public float velDisparo = 0.5f; // velocidad de disparo
     private float nextDisparo;
 
-    //Player
-    public float speed = 5f; 
+    // Player
+    public float speed = 5f;
     public float jump = 10f;
     private int salud = 5;
 
-    //Movimiento
+    // Movimiento
     private float horizontal;
     private bool suelo;
 
@@ -37,8 +34,6 @@ public class Player : MonoBehaviour
     {
         observers.Remove(observer);
     }
-
-
 
     public void Start()
     {
@@ -65,7 +60,7 @@ public class Player : MonoBehaviour
 
         // Dibujar el Raycast en la ventana de Scene
         Color rayColor = suelo ? Color.green : Color.red;
-        Debug.DrawRay(raycastOrigin, Vector2.down * 0.1f, rayColor);
+        Debug.DrawRay(raycastOrigin, Vector2.down * 0.2f, rayColor);
 
         // Salto
         if (Input.GetKeyDown(KeyCode.W) && suelo)
