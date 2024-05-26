@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float speed = 0.005f; 
+
+    private void Update()
     {
-        
+        // Mover la bala hacia adelante en su dirección actual
+        transform.Translate(Vector3.right * speed);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        // Cuando la bala colisiona con otro objeto, liberarla y devolverla al pool
+        gameObject.SetActive(false);
     }
 }

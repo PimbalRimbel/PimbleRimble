@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private float horizontal; 
     private bool suelo; 
 
+
     private void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -78,10 +79,34 @@ public class Player : MonoBehaviour
         Bullet bullet = bulletPool.GetBullet();
         if (bullet != null)
         {
+            // Activar la bala antes de moverla
+            bullet.gameObject.SetActive(true);
+
+            // Establecer la posición inicial de la bala
+            Vector3 bulletStartPosition = transform.position + (Vector3.right * 0.5f); // Ajusta la posición inicial según el jugador
+
+            // Determinar la dirección de movimiento basada en la escala del jugador
             Vector3 direction = transform.localScale.x == 1.0f ? Vector3.right : Vector3.left;
 
-            bullet.transform.position = transform.position + direction * 0.1f; // Posición inicial de la bala
-            bullet.gameObject.SetActive(true); // Activar la bala
+            // Invertir la dirección si el jugador está mirando hacia la derecha
+            if (transform.localScale.x == 1.0f)
+            {
+                direction *= -1.0f;
+            }
+
+            bullet.transform.position = bulletStartPosition; // Establecer la posición inicial de la bala
+
+            // Iniciar la corrutina para mover la bala
+            StartCoroutine(MoverBala(bullet.gameObject, direction));
+        }
+    }
+
+    private IEnumerator MoverBala(GameObject bulletObject, Vector3 direction)
+    {
+        while (bulletObject.activeSelf)
+        {
+            bulletObject.transform.Translate(direction * Time.deltaTime * velDisparo); // Mover la bala en la dirección especificada
+            yield return null;
         }
     }
 
@@ -91,14 +116,6 @@ public class Player : MonoBehaviour
         if (salud <= 0)
         {
             Reestablecer();
-        }
-    }
-
-    private void Posicion()
-    {
-        if (transform.position.y < -0.5)
-        {
-            Reestablecer(); // Reestablecer posición si ha caído demasiado
         }
     }
 
