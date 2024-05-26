@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
     {
         // Obtener una bala del BulletPool
         Bullet bullet = bulletPool.GetBullet();
+
         if (bullet != null)
         {
             // Activar la bala antes de moverla
@@ -95,6 +96,10 @@ public class Player : MonoBehaviour
             }
 
             bullet.transform.position = bulletStartPosition; // Establecer la posición inicial de la bala
+
+
+            // Restablecer el tiempo de disparo
+            nextDisparo = Time.time;
 
             // Iniciar la corrutina para mover la bala
             StartCoroutine(MoverBala(bullet.gameObject, direction));
