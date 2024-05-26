@@ -1,24 +1,24 @@
 using UnityEngine;
 using UnityEngine.Assertions;
-
+using System.Collections.Generic;
 
 public class BulletPool : MonoBehaviour
 {
-    public Bullet[] bulletPrefabs;
+    public Bullet bulletPrefab; 
     public ObjectPool bulletPool;
 
     private void Awake()
     {
         bulletPool = new ObjectPool();
 
-        Assert.IsTrue(bulletPrefabs.Length > 0, "Debe haber más de 1 prefab de bala");
+        Assert.IsNotNull(bulletPrefab, "El prefab de bala no está asignado");
 
-        foreach (var prefab in bulletPrefabs)
+        for (int i = 0; i < 5; i++) // Crea 5 instancias de la bala y agrégalas al pool
         {
-            var instance = Instantiate(prefab);
-            instance.gameObject.SetActive(false);
+            var instance = Instantiate(bulletPrefab);
 
-            bulletPool._objects.Add(prefab);
+            instance.gameObject.SetActive(false); // Desactivar la bala
+            bulletPool._objects.Add(instance);
         }
     }
 

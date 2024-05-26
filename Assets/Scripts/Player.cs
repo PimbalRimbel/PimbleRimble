@@ -1,66 +1,51 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D Rigidbody;
-    public GameObject BulletPrefab;
+    public BulletPool bulletPool; //referencia al BulletPool
 
-    // Bala
-    private int numero = 0;
-    public float velDisparo = 0.5f; // velocidad de disparo
+    //Bala
+    public float velDisparo = 0.5f; //velocidad de disparo
     private float nextDisparo;
 
-    // Player
-    public float speed = 5f;
-    public float jump = 10f;
-    private int salud = 5;
+    //Player
+    public float speed = 5f; 
+    public float jump = 10f; 
+    private int salud = 5; 
 
-    // Movimiento
-    private float horizontal;
-    private bool suelo;
+    //Suelo
+    private float horizontal; 
+    private bool suelo; 
 
-    // PATRÓN OBSERVER
-    private List<IObserver<float>> observers = new List<IObserver<float>>();
-
-    public void AddObserver(IObserver<float> observer) // agregamos
-    {
-        observers.Add(observer);
-    }
-
-    public void RemoveObserver(IObserver<float> observer) // eliminamos
-    {
-        observers.Remove(observer);
-    }
-
-    public void Start()
+    private void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public void Update()
+    private void Update()
     {
-        // Movimiento
+        // Movimiento horizontal
         horizontal = Input.GetAxisRaw("Horizontal");
 
         if (horizontal < 0.0f)
         {
-            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f); // Girar a la izquierda
         }
         else if (horizontal > 0.0f)
         {
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); // Girar a la derecha
         }
 
-        // Detecto el suelo
+        // Detectar si el jugador está en el suelo
         Vector3 raycastOrigin = transform.position + Vector3.down * 0.1f;
         suelo = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
 
         // Dibujar el Raycast en la ventana de Scene
         Color rayColor = suelo ? Color.green : Color.red;
-        Debug.DrawRay(raycastOrigin, Vector2.down * 0.2f, rayColor);
+        Debug.DrawRay(raycastOrigin, Vector2.down * 0.1f, rayColor);
 
         // Salto
         if (Input.GetKeyDown(KeyCode.W) && suelo)
@@ -74,8 +59,6 @@ public class Player : MonoBehaviour
             Disparo();
             nextDisparo = Time.time;
         }
-
-        Posicion();
     }
 
     private void FixedUpdate()
@@ -86,13 +69,20 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        Rigidbody.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+        Rigidbody.AddForce(Vector2.up * jump, ForceMode2D.Impulse); // Aplicar fuerza de salto
     }
 
-    public void Disparo()
+    private void Disparo()
     {
-        Vector3 direction = transform.localScale.x == 1.0f ? Vector3.right : Vector3.left;
-        Instantiate(BulletPrefab, transform.position + direction * 0.1f, Quaternion.identity);
+        // Obtener una bala del BulletPool
+        Bullet bullet = bulletPool.GetBullet();
+        if (bullet != null)
+        {
+            Vector3 direction = transform.localScale.x == 1.0f ? Vector3.right : Vector3.left;
+
+            bullet.transform.position = transform.position + direction * 0.1f; // Posición inicial de la bala
+            bullet.gameObject.SetActive(true); // Activar la bala
+        }
     }
 
     public void Alcanzado()
@@ -104,17 +94,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Posicion()
+    private void Posicion()
     {
         if (transform.position.y < -0.5)
         {
-            Reestablecer();
+            Reestablecer(); // Reestablecer posición si ha caído demasiado
         }
     }
 
-    public void Reestablecer()
+    private void Reestablecer()
     {
-        numero = 1;
+        // Reiniciar posición y salud del jugador
         transform.position = new Vector3(-1, 0.1f, 0);
         salud = 5;
     }

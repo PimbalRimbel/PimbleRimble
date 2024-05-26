@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Escenario
+    uniqueID: 2989439509
+    locked: 0
+  - name: Personaje
+    uniqueID: 2989160481
+    locked: 0
+  - name: Bala
+    uniqueID: 941763729
+    locked: 0
