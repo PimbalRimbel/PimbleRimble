@@ -1,7 +1,7 @@
 
 public interface IPool
 {
-    public void Get(IPooledObject aux);
+    public IPooledObject Get();
 
     public void Release(IPooledObject obj);
 }

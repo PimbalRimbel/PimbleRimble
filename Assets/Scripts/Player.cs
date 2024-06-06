@@ -80,8 +80,6 @@ public class Player : MonoBehaviour
 
         if (bullet != null)
         {
-            // Activar la bala antes de moverla
-            bullet.gameObject.SetActive(true);
 
             // Establecer la posición inicial de la bala
             Vector3 bulletStartPosition = transform.position + (Vector3.right * 0.5f); // Ajusta la posición inicial según el jugador
