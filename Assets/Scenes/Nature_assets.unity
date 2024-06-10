@@ -4832,6 +4832,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6486053606824188630, guid: 6162ac2b60c16c94397bcb67cc23d297, type: 3}
+      propertyPath: jump
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486053606824188630, guid: 6162ac2b60c16c94397bcb67cc23d297, type: 3}
       propertyPath: bulletPool
       value: 
       objectReference: {fileID: 1428751628}

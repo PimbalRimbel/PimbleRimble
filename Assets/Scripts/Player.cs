@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,7 +12,7 @@ public class Player : MonoBehaviour
 
     //Player
     public float speed = 5f; 
-    public float jump = 10f; 
+    public float jump = 5f; 
     private int salud = 5; 
 
     //Suelo
@@ -42,15 +41,13 @@ public class Player : MonoBehaviour
 
         // Detectar si el jugador está en el suelo
         Vector3 raycastOrigin = transform.position + Vector3.down * 0.1f;
-        suelo = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
-
-        // Dibujar el Raycast en la ventana de Scene
-        Color rayColor = suelo ? Color.green : Color.red;
-        Debug.DrawRay(raycastOrigin, Vector2.down * 0.1f, rayColor);
+        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
+        suelo = hit.collider != null;
 
         // Salto
-        if (Input.GetKeyDown(KeyCode.W) && suelo)
+        if (Input.GetKeyDown(KeyCode.W))
         {
+            Debug.Log("Has pulsado W");
             Jump();
         }
 
@@ -70,6 +67,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
+        Debug.Log("Esta saltando");
         Rigidbody.AddForce(Vector2.up * jump, ForceMode2D.Impulse); // Aplicar fuerza de salto
     }
 
