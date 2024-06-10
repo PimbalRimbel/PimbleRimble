@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class FwFactory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Dictionary<string, IFlyweight> flyweights = new Dictionary<string, IFlyweight>();
 
-    // Update is called once per frame
-    void Update()
+    public IFlyweight GetFlyweight(string key, GameObject prefab, Vector3 size)
     {
-        
+        if (!flyweights.ContainsKey(key))
+        {
+            flyweights[key] = new FwPig(prefab, size);
+        }
+        return flyweights[key];
     }
 }

@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class FwClient : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<Transform> spawnPositions;
+    public GameObject greenPigPrefab;
+    public GameObject redPigPrefab;
+    private FwFactory factory;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        factory = new FwFactory();
+        //Creamos instancias flyweight para cada tipo de cerdo
+        IFlyweight greenPig = factory.GetFlyweight("GreenPig", greenPigPrefab, new Vector3(1.5f, 1.5f, 1.5f));
+        IFlyweight redPig = factory.GetFlyweight("RedPig", redPigPrefab, new Vector3(2, 2, 2));
+
+        // Creamos los cerdos en diferentes posiciones
+        for (int i = 0; i < spawnPositions.Count; i += 2)
+        {
+            greenPig.Display(spawnPositions[i].position, 100, 2.0f);
+            redPig.Display(spawnPositions[i+1].position, 100, 2.0f);
+        }
     }
 }

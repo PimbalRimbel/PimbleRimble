@@ -4,9 +4,5 @@ using UnityEngine;
 
 public interface IFlyweight
 {
-    // Estado intrinseco
-    int Color { get; } // 0 => Verde, 1 => Rojo
-    void Roam();
-    
-    
+    void Display(Vector3 position, int health, float speed);
 }
