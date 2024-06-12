@@ -33,11 +33,11 @@ public class Player : MonoBehaviour
 
         if (horizontal < 0.0f)
         {
-            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f); // Girar a la izquierda
+            transform.localScale = new Vector3(-2.0f, 2.0f, 2.0f); // Girar a la izquierda
         }
         else if (horizontal > 0.0f)
         {
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); // Girar a la derecha
+            transform.localScale = new Vector3(2.0f, 2.0f, 2.0f); // Girar a la derecha
         }
 
         // Detectar si el jugador está en el suelo
