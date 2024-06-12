@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement; //para reiniciar
 
 public class Player : MonoBehaviour
 {
@@ -125,5 +126,20 @@ public class Player : MonoBehaviour
         // Reiniciar posición y salud del jugador
         transform.position = new Vector3(-1, 0.1f, 0);
         salud = 5;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            StartCoroutine(RestartLevelWithDelay(0.3f));
+            
+        }
+    }
+
+    private IEnumerator RestartLevelWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reinicia el nivel
     }
 }
