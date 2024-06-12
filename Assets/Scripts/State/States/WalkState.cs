@@ -12,6 +12,7 @@ public class WalkState : IEnemyState
     public void Enter(Pig enemy)
     {
         _enemy = enemy;
+        FlipSprite();
         _enemy.StartCoroutine(MoveForward());
         Debug.Log("Empieza a moverse");
         
@@ -40,11 +41,17 @@ public class WalkState : IEnemyState
         while (movedDistance < moveDistance)
         {
             float distanceToMove = Mathf.Min(moveSpeed * Time.deltaTime, moveDistance - movedDistance);
-            _enemy.transform.Translate(Vector3.left * distanceToMove);
+            _enemy.transform.Translate(Vector3.right * distanceToMove);
             movedDistance += distanceToMove;
             yield return null;
         }
         _enemy.ChangeState(new IdleState());
+    }
+    private void FlipSprite()
+    {
+        Vector3 scale = _enemy.transform.localScale;
+        scale.x *= -1; // Voltear el eje X
+        _enemy.transform.localScale = scale;
     }
 
 }
