@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -45,6 +46,16 @@ public class Pig : MonoBehaviour
     {
         return previousState;
     }
+
+   private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Si la bala colisiona con un objeto distinto al jugador, desactivar la bala y devolverla al pool
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     //EndState
     /*
