@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public BulletPool bulletPool; //referencia al BulletPool
 
     //Bala
-    public float velDisparo = 0.5f; //velocidad de disparo
+    public float velDisparo = 1.5f; //velocidad de disparo
     private float nextDisparo;
 
     //Player
