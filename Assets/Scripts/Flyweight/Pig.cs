@@ -1,47 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Pig : MonoBehaviour
 {
     public int health;
     public float speed;
+    public float moveDistance = 2.0f;
+    public float waitTime = 0.5f;
+   
 
-    private void Start() {
-        // Logica movimiento puercos
-        StartCoroutine(MovePig());
+    private IEnemyState currentState;
+    private IEnemyState previousState;
+
+    //State
+    public void Start()
+    {
+        ChangeState(new WalkState());
+        
     }
 
-    private IEnumerator MovePig()
+    private void Update()
     {
-        while (true)
+        if (currentState != null)
         {
-            // Mover a la izquierda
-            yield return Move(Vector3.left);
-            // Esperar
-            yield return new WaitForSeconds(1.0f);
-
-            // Mover a la derecha
-            yield return Move(Vector3.right);
-            // Esperar
-            yield return new WaitForSeconds(1.0f);
+            currentState.Execute();
         }
     }
-
-    private IEnumerator Move(Vector3 direction)
+   
+    public void ChangeState(IEnemyState newState)
     {
-        float elapsedTime = 0;
-        float duration = 0.5f; // Duración del movimiento
-        Vector3 initialPosition = transform.position;
-        Vector3 targetPosition = initialPosition + direction * 0.5f; // Avanzar muy poco
-
-        while (elapsedTime < duration)
+        if (currentState != null) 
         {
-            transform.position = Vector3.Lerp(initialPosition, targetPosition, (elapsedTime / duration));
-            elapsedTime += Time.deltaTime;
+            currentState.Exit();
+        }
+        previousState = currentState;
+        currentState = newState;
+        currentState.Enter(this);
+
+        currentState = newState;
+    }
+    public IEnemyState GetPreviousState()
+    {
+        return previousState;
+    }
+
+    //EndState
+    /*
+    private IEnumerator MoveBackAndForth()
+    {
+        float movedDistance = 0;
+        float maxDistance = 2.0f;
+        while (movedDistance < maxDistance)
+        {
+
+            yield return Move(Vector3.left, moveDistance);
+            movedDistance += moveDistance;
+            Debug.Log("Moved left");
+
+        }
+        ChangeState(new IdleState());
+        Debug.Log("Idle ");
+
+        while (movedDistance > 0)
+        {
+            yield return Move(Vector3.right, moveDistance);
+            movedDistance -= moveDistance;
+            Debug.Log("Moved right");
+        }
+        ChangeState(new IdleState());
+        Debug.Log("Idle ");
+    }
+
+    private IEnumerator Move(Vector3 direction, float distance)
+    {
+
+        Vector3 initialPosition = transform.position;
+        Vector3 targetPosition = initialPosition + direction * distance;
+
+        while ((targetPosition - transform.position).magnitude > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             yield return null;
         }
 
-        transform.position = targetPosition; // Asegurarse de que el movimiento llegue a la posición final
-    }
+        transform.position = targetPosition;
+    }*/
+
 }
