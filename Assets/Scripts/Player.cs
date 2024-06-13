@@ -80,11 +80,12 @@ public class Player : MonoBehaviour
         if (bullet != null)
         {
 
-            // Establecer la posición inicial de la bala
-            Vector3 bulletStartPosition = transform.position + (Vector3.right * 0.5f); // Ajusta la posición inicial según el jugador
-
             // Determinar la dirección de movimiento basada en la escala del jugador
-            Vector3 direction = transform.localScale.x == 1.0f ? Vector3.right : Vector3.left;
+            Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
+            direction = direction*-1;
+
+            // Establecer la posición inicial de la bala
+            Vector3 bulletStartPosition = transform.position + (direction * -0.3f); // Ajusta la posición inicial según el jugador
 
             // Invertir la dirección si el jugador está mirando hacia la derecha
             if (transform.localScale.x == 1.0f)

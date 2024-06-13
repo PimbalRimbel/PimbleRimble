@@ -10,6 +10,8 @@ public class Pig : MonoBehaviour
     public float speed;
     public float moveDistance = 2.0f;
     public float waitTime = 0.5f;
+    public Transform player;
+    public LayerMask playerLayer;//referencias al jugador
    
 
     private IEnemyState currentState;
@@ -28,6 +30,16 @@ public class Pig : MonoBehaviour
         {
             currentState.Execute();
         }
+
+        Vector2 direction = transform.localScale.x == 1 ? Vector2.right : Vector2.left;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 5f, playerLayer);
+
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
+            //se chequea el posible cambio de estado cada vez que se hace un update
+        {
+            ChangeState(new DetectionState());
+        }
+       
     }
    
     public void ChangeState(IEnemyState newState)
