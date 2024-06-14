@@ -14,22 +14,6 @@ public class FwPig : IFlyweight
         this.pigPrefab = pigPrefab;
         this.size = size;
     }
-    public void SetHealth(int h)
-    {
-        health = h;
-    }
-    public void SetSpeed(float s)
-    {
-        speed = s;
-    }
-    public int GetHealth()
-    {
-        return health;
-    }
-    public float GetSpeed()
-    {
-        return speed;
-    }
 
     public void Display(Vector3 position, int health, float speed){
         GameObject pig = GameObject.Instantiate(pigPrefab, position, Quaternion.identity);
