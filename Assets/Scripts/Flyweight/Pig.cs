@@ -60,7 +60,14 @@ public class Pig : MonoBehaviour
         // Si la bala colisiona con un objeto distinto al jugador, desactivar la bala y devolverla al pool
         if (other.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
+            if (health > 1)
+            {
+                health--;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
     public int GetHealth()
@@ -71,7 +78,7 @@ public class Pig : MonoBehaviour
     {
         return speed;
     }
-    
+
 
     //EndState
     /*
