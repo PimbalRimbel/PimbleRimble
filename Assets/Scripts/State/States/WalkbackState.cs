@@ -5,8 +5,8 @@ using UnityEngine;
 public class WalkbackState : IEnemyState
 {
     private Pig _enemy;
-    private float moveDistance = 3.0f;
-    private float moveSpeed = 1.0f;
+    private float moveDistance = 1.0f;
+    private float moveSpeed = .7f;
 
 
     public void Enter(Pig enemy)
@@ -14,7 +14,7 @@ public class WalkbackState : IEnemyState
         _enemy = enemy;
         FlipSprite();
         _enemy.StartCoroutine(MoveBackward());
-        Debug.Log("Empieza a moverse hacia atrás");
+        Debug.Log("Empieza a moverse hacia atrï¿½s");
 
     }
 

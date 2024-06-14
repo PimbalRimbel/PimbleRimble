@@ -5,8 +5,8 @@ using UnityEngine;
 public class WalkState : IEnemyState
 {
     private Pig _enemy;
-    private float moveDistance = 3.0f;
-    private float moveSpeed = 1.0f;
+    private float moveDistance = 1.0f;
+    private float moveSpeed = .7f;
 
 
     public void Enter(Pig enemy)
@@ -24,7 +24,7 @@ public class WalkState : IEnemyState
 
         /*if (true)
         {
-            Debug.Log("Debería cambiar a Search");
+            Debug.Log("Deberï¿½a cambiar a Search");
             //_enemy.ChangeState(new SearchState());
             
         }*/
