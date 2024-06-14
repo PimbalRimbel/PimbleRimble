@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class Pig : MonoBehaviour
 {
@@ -12,7 +8,7 @@ public class Pig : MonoBehaviour
     public float waitTime = 0.5f;
     public Transform player;
     public LayerMask playerLayer;//referencias al jugador
-   
+
 
     private IEnemyState currentState;
     private IEnemyState previousState;
@@ -35,16 +31,16 @@ public class Pig : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 5f, playerLayer);
 
         if (hit.collider != null && hit.collider.CompareTag("Player"))
-            //se chequea el posible cambio de estado cada vez que se hace un update
+        //se chequea el posible cambio de estado cada vez que se hace un update
         {
             ChangeState(new DetectionState());
         }
-       
+
     }
-   
+
     public void ChangeState(IEnemyState newState)
     {
-        if (currentState != null) 
+        if (currentState != null)
         {
             currentState.Exit();
         }
@@ -59,7 +55,7 @@ public class Pig : MonoBehaviour
         return previousState;
     }
 
-   private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // Si la bala colisiona con un objeto distinto al jugador, desactivar la bala y devolverla al pool
         if (other.CompareTag("Bullet"))
@@ -67,7 +63,15 @@ public class Pig : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    public int GetHealth()
+    {
+        return health;
+    }
+    public float GetSpeed()
+    {
+        return speed;
+    }
+    
 
     //EndState
     /*

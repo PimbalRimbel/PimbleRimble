@@ -6,7 +6,7 @@ public class WalkbackState : IEnemyState
 {
     private Pig _enemy;
     private float moveDistance = 1.0f;
-    private float moveSpeed = .7f;
+    private float moveSpeed;
 
 
     public void Enter(Pig enemy)
@@ -14,12 +14,12 @@ public class WalkbackState : IEnemyState
         _enemy = enemy;
         FlipSprite();
         _enemy.StartCoroutine(MoveBackward());
-
+        moveSpeed = _enemy.GetSpeed();
     }
 
     public void Execute()
     {
-    
+
     }
     public void Exit()
     {

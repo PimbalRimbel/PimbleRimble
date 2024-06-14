@@ -6,15 +6,14 @@ public class WalkState : IEnemyState
 {
     private Pig _enemy;
     private float moveDistance = 1.0f;
-    private float moveSpeed = .7f;
-
+    private float moveSpeed;
 
     public void Enter(Pig enemy)
     {
         _enemy = enemy;
         FlipSprite();
         _enemy.StartCoroutine(MoveForward());
-        
+        moveSpeed = _enemy.GetSpeed();
     }
 
     public void Execute()
