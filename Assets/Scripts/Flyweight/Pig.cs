@@ -21,7 +21,7 @@ public class Pig : MonoBehaviour
     public void Start()
     {
         ChangeState(new WalkState());
-        
+        player = FindObjectOfType<Player>().gameObject.transform;
     }
 
     private void Update()

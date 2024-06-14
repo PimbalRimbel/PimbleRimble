@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPool: {fileID: 0}
-  velDisparo: 0.5
+  velDisparo: 5
   speed: 5
   jump: 10
 --- !u!95 &6486053606824188631
