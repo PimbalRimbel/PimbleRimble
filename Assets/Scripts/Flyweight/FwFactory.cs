@@ -10,7 +10,7 @@ public class FwFactory : MonoBehaviour
     {
         if (!flyweights.ContainsKey(key))
         {
-            flyweights[key] = new FwPig(prefab, size/*, health, speed*/);
+            flyweights[key] = new FwPig(prefab, size);
         }
         return flyweights[key];
     }

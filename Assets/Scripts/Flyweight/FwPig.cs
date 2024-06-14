@@ -9,10 +9,8 @@ public class FwPig : IFlyweight
     private GameObject pigPrefab;
     private Vector3 size;
 
-    public FwPig(GameObject pigPrefab, Vector3 size/*, int health, float speed*/)
+    public FwPig(GameObject pigPrefab, Vector3 size)
     {
-        /*this.health = health;
-        this.speed = speed;*/
         this.pigPrefab = pigPrefab;
         this.size = size;
     }
