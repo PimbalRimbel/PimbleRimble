@@ -12,6 +12,11 @@ public class SceneManagement : MonoBehaviour
         SceneManager.LoadScene("JUEGO");
     }
 
+    public void escenaWin()
+    {
+        SceneManager.LoadScene("WIN_SCENE");
+    }
+
     public void escenaCreditos()
     {
         SceneManager.LoadScene("CREDITOS");

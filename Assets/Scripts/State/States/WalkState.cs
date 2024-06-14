@@ -14,7 +14,6 @@ public class WalkState : IEnemyState
         _enemy = enemy;
         FlipSprite();
         _enemy.StartCoroutine(MoveForward());
-        Debug.Log("Empieza a moverse");
         
     }
 
@@ -31,7 +30,6 @@ public class WalkState : IEnemyState
     }
     public void Exit()
     {
-        Debug.Log("Exiting Walk State");
         _enemy.StopAllCoroutines();
     }
 

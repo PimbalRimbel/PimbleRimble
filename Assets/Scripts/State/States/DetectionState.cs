@@ -11,7 +11,6 @@ public class DetectionState : IEnemyState
     {
         _enemy = enemy;
         _enemy.StartCoroutine(DetectAndJump());
-        Debug.Log("Entering DetectionState");
     }
 
     public void Execute()

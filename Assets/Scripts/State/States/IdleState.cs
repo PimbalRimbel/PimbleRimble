@@ -9,7 +9,6 @@ public class IdleState : IEnemyState
     {
         _enemy = enemy;
         _enemy.StartCoroutine(IdleAndChangeState());
-        Debug.Log("Entering Idle state");
         
     }
 
@@ -20,8 +19,7 @@ public class IdleState : IEnemyState
 
     public void Exit()
     {
-        // Puedes agregar cualquier lógica necesaria al salir del estado Idle
-        Debug.Log("Exiting Idle state");
+        // Puedes agregar cualquier lï¿½gica necesaria al salir del estado Idle
         _enemy.StopAllCoroutines();
     }
 

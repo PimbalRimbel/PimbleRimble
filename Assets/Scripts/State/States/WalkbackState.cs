@@ -14,7 +14,6 @@ public class WalkbackState : IEnemyState
         _enemy = enemy;
         FlipSprite();
         _enemy.StartCoroutine(MoveBackward());
-        Debug.Log("Empieza a moverse hacia atr�s");
 
     }
 
@@ -24,7 +23,6 @@ public class WalkbackState : IEnemyState
     }
     public void Exit()
     {
-        Debug.Log("Exiting Walkback State");
         _enemy.StopAllCoroutines();
     }
 

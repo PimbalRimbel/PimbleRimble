@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement; //para reiniciar
+using System;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     public BulletPool bulletPool; //referencia al BulletPool
+    public SceneManagement sceneManagement;
 
     //Bala
     public float velDisparo = 1.5f; //velocidad de disparo
@@ -13,18 +15,24 @@ public class Player : MonoBehaviour
 
     //Player
     public float moveSpeed = 5f; // Velocidad de movimiento del personaje
-    public float speed = 5f; 
-    public float jump = 5f; 
-    private int salud = 5; 
+    public float speed = 5f;
+    public float jump = 5f;
+    private int salud = 5;
 
     //Suelo
-    private float horizontal; 
-    private bool suelo; 
+    private float horizontal;
+    private bool suelo;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        try
+        {
+            sceneManagement = FindObjectOfType<SceneManagement>();
+            Debug.Log("SI encuentro");
+        }
+        catch (Exception) { Debug.Log("NO encuentro"); }
     }
 
     private void Update()
@@ -81,7 +89,7 @@ public class Player : MonoBehaviour
 
             // Determinar la direcci�n de movimiento basada en la escala del jugador
             Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
-            direction = direction*-1;
+            direction = direction * -1;
 
             // Establecer la posici�n inicial de la bala
             Vector3 bulletStartPosition = transform.position + (direction * -0.3f); // Ajusta la posici�n inicial seg�n el jugador
@@ -133,9 +141,15 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             StartCoroutine(RestartLevelWithDelay(0.3f));
-            
+        }
+        if (collision.gameObject.CompareTag("Win"))
+        {
+            sceneManagement.escenaWin();
+            Debug.Log("Intento cambiar de escena");
+
         }
     }
+
 
     private IEnumerator RestartLevelWithDelay(float delay)
     {
