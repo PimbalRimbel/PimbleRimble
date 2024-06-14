@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement; //para reiniciar
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody2D Rigidbody;
+    private Rigidbody2D rb;
     public BulletPool bulletPool; //referencia al BulletPool
 
     //Bala
@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private float nextDisparo;
 
     //Player
+    public float moveSpeed = 5f; // Velocidad de movimiento del personaje
     public float speed = 5f; 
     public float jump = 5f; 
     private int salud = 5; 
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(2.0f, 2.0f, 2.0f); // Girar a la derecha
         }
 
-        // Detectar si el jugador está en el suelo
+        // Detectar si el jugador estï¿½ en el suelo
         Vector3 raycastOrigin = transform.position + Vector3.down * 0.1f;
         RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
         suelo = hit.collider != null;
@@ -48,7 +49,6 @@ public class Player : MonoBehaviour
         // Salto
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Has pulsado W");
             Jump();
         }
 
@@ -63,13 +63,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         // Movimiento horizontal
-        Rigidbody.velocity = new Vector2(horizontal * speed, Rigidbody.velocity.y);
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
     private void Jump()
     {
-        Debug.Log("Esta saltando");
-        Rigidbody.AddForce(Vector2.up * jump, ForceMode2D.Impulse); // Aplicar fuerza de salto
+        rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse); // Aplicar fuerza de salto
     }
 
     private void Disparo()
@@ -80,20 +79,20 @@ public class Player : MonoBehaviour
         if (bullet != null)
         {
 
-            // Determinar la dirección de movimiento basada en la escala del jugador
+            // Determinar la direcciï¿½n de movimiento basada en la escala del jugador
             Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
             direction = direction*-1;
 
-            // Establecer la posición inicial de la bala
-            Vector3 bulletStartPosition = transform.position + (direction * -0.3f); // Ajusta la posición inicial según el jugador
+            // Establecer la posiciï¿½n inicial de la bala
+            Vector3 bulletStartPosition = transform.position + (direction * -0.3f); // Ajusta la posiciï¿½n inicial segï¿½n el jugador
 
-            // Invertir la dirección si el jugador está mirando hacia la derecha
+            // Invertir la direcciï¿½n si el jugador estï¿½ mirando hacia la derecha
             if (transform.localScale.x == 1.0f)
             {
                 direction *= -1.0f;
             }
 
-            bullet.transform.position = bulletStartPosition; // Establecer la posición inicial de la bala
+            bullet.transform.position = bulletStartPosition; // Establecer la posiciï¿½n inicial de la bala
 
 
             // Restablecer el tiempo de disparo
@@ -108,7 +107,7 @@ public class Player : MonoBehaviour
     {
         while (bulletObject.activeSelf)
         {
-            bulletObject.transform.Translate(direction * Time.deltaTime * velDisparo); // Mover la bala en la dirección especificada
+            bulletObject.transform.Translate(direction * Time.deltaTime * velDisparo); // Mover la bala en la direcciï¿½n especificada
             yield return null;
         }
     }
@@ -124,7 +123,7 @@ public class Player : MonoBehaviour
 
     private void Reestablecer()
     {
-        // Reiniciar posición y salud del jugador
+        // Reiniciar posiciï¿½n y salud del jugador
         transform.position = new Vector3(-1, 0.1f, 0);
         salud = 5;
     }
