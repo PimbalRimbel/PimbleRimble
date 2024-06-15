@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public BulletPool bulletPool; //referencia al BulletPool
     public SceneManagement sceneManagement;
+    public Transform spawnPos;
+    private LifeManager lifeManager;
 
     //Bala
     public float velDisparo = 1.5f; //velocidad de disparo
@@ -17,7 +19,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f; // Velocidad de movimiento del personaje
     public float speed = 5f;
     public float jump = 5f;
-    private int salud = 5;
+    public int salud = 3;
 
     //Suelo
     private float horizontal;
@@ -25,14 +27,11 @@ public class Player : MonoBehaviour
 
 
     private void Start()
-    {
+    {        
         rb = GetComponent<Rigidbody2D>();
-        try
-        {
-            sceneManagement = FindObjectOfType<SceneManagement>();
-            Debug.Log("SI encuentro");
-        }
-        catch (Exception) { Debug.Log("NO encuentro"); }
+        lifeManager = FindObjectOfType<LifeManager>();
+        sceneManagement = FindObjectOfType<SceneManagement>();
+
     }
 
     private void Update()
@@ -120,22 +119,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Alcanzado()
-    {
-        salud -= 1;
-        if (salud <= 0)
-        {
-            Reestablecer();
-        }
-    }
-
-    private void Reestablecer()
-    {
-        // Reiniciar posici�n y salud del jugador
-        transform.position = new Vector3(-1, 0.1f, 0);
-        salud = 5;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -149,11 +132,20 @@ public class Player : MonoBehaviour
 
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            salud--;
+            lifeManager.LoseLife(salud);
+        }
+    }
 
 
     private IEnumerator RestartLevelWithDelay(float delay)
     {
+
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reinicia el nivel
+        transform.position = spawnPos.transform.position;
     }
 }

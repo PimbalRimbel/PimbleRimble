@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPool: {fileID: 0}
   sceneManagement: {fileID: 0}
-  velDisparo: 0.5
+  velDisparo: 1
   moveSpeed: 5
   speed: 5
   jump: 10
