@@ -137,6 +137,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             salud--;
+            if (salud == 0) sceneManagement.escenaLost();
             lifeManager.LoseLife(salud);
         }
     }

@@ -16,7 +16,10 @@ public class SceneManagement : MonoBehaviour
     {
         SceneManager.LoadScene("WIN_SCENE");
     }
-
+public void escenaLost()
+    {
+        SceneManager.LoadScene("LOST");
+    }
     public void escenaCreditos()
     {
         SceneManager.LoadScene("CREDITOS");
