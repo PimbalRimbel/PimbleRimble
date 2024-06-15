@@ -4,7 +4,8 @@ using UnityEngine;
 public class IdleState : IEnemyState
 {
     private Pig _enemy;
-    
+    private Transform player;
+
     public void Enter(Pig enemy)
     {
         _enemy = enemy;
@@ -29,10 +30,18 @@ public class IdleState : IEnemyState
 
         if (_enemy.GetPreviousState() is WalkState)
         {
+           /* if(player = GameObject.FindGameObjectWithTag("Player").transform){ 
+                
+            _enemy.ChangeState(new DetectionState());
+            yield return new WaitForSeconds(1f);
+            }*/
             _enemy.ChangeState(new WalkbackState());
+            
+
         }
         else if (_enemy.GetPreviousState() is WalkbackState)
         {
+
             _enemy.ChangeState(new WalkState());
         }
     }
