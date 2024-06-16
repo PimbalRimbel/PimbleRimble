@@ -20,7 +20,7 @@ public class IdleState : IEnemyState
 
     public void Exit()
     {
-        // Puedes agregar cualquier l�gica necesaria al salir del estado Idle
+        
         _enemy.StopAllCoroutines();
     }
 

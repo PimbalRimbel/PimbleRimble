@@ -42,7 +42,7 @@ public class WalkbackState : IEnemyState
     private void FlipSprite()
     {
         Vector3 scale = _enemy.transform.localScale;
-        scale.x *= -1; // Voltear el eje X
+        scale.x *= -1; 
         _enemy.transform.localScale = scale;
     }
 

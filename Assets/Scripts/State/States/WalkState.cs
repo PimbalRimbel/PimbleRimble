@@ -22,8 +22,8 @@ public class WalkState : IEnemyState
 
         /*if (true)
         {
-            Debug.Log("Deber�a cambiar a Search");
-            //_enemy.ChangeState(new SearchState());
+            Debug.Log("Deber�a cambiar a Detection");
+            //_enemy.ChangeState(new DetectionState());
             
         }*/
     }
@@ -47,7 +47,7 @@ public class WalkState : IEnemyState
     private void FlipSprite()
     {
         Vector3 scale = _enemy.transform.localScale;
-        scale.x *= -1; // Voltear el eje X
+        scale.x *= -1; 
         _enemy.transform.localScale = scale;
     }
 
