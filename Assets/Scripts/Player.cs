@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(2.0f, 2.0f, 2.0f); // Girar a la derecha
         }
 
-        // Detectar si el jugador est� en el suelo
+        // Detectar si el jugador esta en el suelo
         Vector3 raycastOrigin = transform.position + Vector3.down * 0.1f;
         RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
         suelo = hit.collider != null;
